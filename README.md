@@ -7,4 +7,8 @@ Any extra notes you have, just put them here with the date and we should see the
 TODO: Translate Python to Java
 TODO: Web Crawler?
 
+Web Crawler format (temp):
+
+(season #) (game #) ()
+
 #
