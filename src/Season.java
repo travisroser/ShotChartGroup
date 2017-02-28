@@ -15,4 +15,10 @@ public class Season {
 
     }
 
+    //GETTERS AND SETTERS
+    public void setSeasonID( int id ){seasonID = id;}
+    public int getSeasonID(){return seasonID;}
+    public void addGametoSeason( Game newGame ){gamesList.add(newGame);}
+    public ArrayList<Game> getGamesList(){return gamesList;}
+
 }
