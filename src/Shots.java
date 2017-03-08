@@ -5,20 +5,20 @@ package src;
  */
 public class Shots {
 
-    private int xCoordinate;
-    private int yCoordinate;
-    private boolean missOrMake; // 0 => miss   1 => make
+    private String xCoordinate;
+    private String yCoordinate;
+    private String missOrMake; // 0 => miss   1 => make
 
     Shots(){
 
     }
 
     //GETTERS AND SETTERS
-    public void setxCoordinate( int x ){xCoordinate = x;}
-    public int getxCoordinate(){return xCoordinate;}
-    public void setyCoordinate( int y ){yCoordinate = y;}
-    public int getyCoordinate(){return yCoordinate;}
-    public void setMissOrMake( boolean result ){missOrMake = result;}
-    public boolean getmissOrMake(){return missOrMake;}
+    public void setxCoordinate( String x ){xCoordinate = x;}
+    public String getxCoordinate(){return xCoordinate;}
+    public void setyCoordinate( String y ){yCoordinate = y;}
+    public String getyCoordinate(){return yCoordinate;}
+    public void setMissOrMake( String result ){missOrMake = result;}
+    public String getmissOrMake(){return missOrMake;}
 
 }

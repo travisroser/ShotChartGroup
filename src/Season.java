@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Season {
 
-    private int seasonID;
+    private String seasonID;
     private ArrayList<Game> gamesList = new ArrayList<Game>();
 
     Season(){
@@ -16,8 +16,8 @@ public class Season {
     }
 
     //GETTERS AND SETTERS
-    public void setSeasonID( int id ){seasonID = id;}
-    public int getSeasonID(){return seasonID;}
+    public void setSeasonID( String id ){seasonID = id;}
+    public String getSeasonID(){return seasonID;}
     public void addGametoSeason( Game newGame ){gamesList.add(newGame);}
     public ArrayList<Game> getGamesList(){return gamesList;}
 

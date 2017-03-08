@@ -7,8 +7,10 @@ Any extra notes you have, just put them here with the date and we should see the
 TODO: Translate Python to Java
 TODO: Web Crawler?
 
+#3/7/17 -- Travis
+
 Web Crawler format (temp):
 
-(season #) (game #) ()
+(seasonID#) (gameID#) (gameDate) (gameTime) (firstName) (lastName) (jersey#) (xCoordinate) (yCoordinate) (missORmake)
 
 #
