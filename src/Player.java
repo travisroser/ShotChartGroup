@@ -26,5 +26,23 @@ public class Player {
     public String getFirstName(){return firstName;}
     public void setLastName( String name ){lastName = name;}
     public String getLastName(){return lastName;}
+    public int getShotsMade(){
+        int result = 0;
+        for( int i = 0; i < shotsList.size(); i++ ){
+            if( shotsList.get(i).getmissOrMake() == '1' ){
+                result++;
+            }
+        }
+        return result;
+    }
+    public int getShotsMissed(){
+        int result = 0;
+        for( int i = 0; i < shotsList.size(); i++ ){
+            if( shotsList.get(i).getmissOrMake() == '0' ){
+                result++;
+            }
+        }
+        return result;
+    }
 
 }

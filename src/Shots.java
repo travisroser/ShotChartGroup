@@ -19,6 +19,6 @@ public class Shots {
     public void setyCoordinate( String y ){yCoordinate = y;}
     public String getyCoordinate(){return yCoordinate;}
     public void setMissOrMake( String result ){missOrMake = result;}
-    public String getmissOrMake(){return missOrMake;}
+    public char getmissOrMake(){return missOrMake.charAt(0);}
 
 }
