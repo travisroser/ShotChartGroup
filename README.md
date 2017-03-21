@@ -13,4 +13,11 @@ Web Crawler format (temp):
 
 (seasonID#) (gameID#) (gameDate) (gameTime) (firstName) (lastName) (jersey#) (xCoordinate) (yCoordinate) (missORmake)
 
+#3/21/17 -- Meeting with prof
+
+TODO: Make GUI one screen with side panel using RISKGUI
+TODO: Make setting choice to choose what type to filter in JMenu?
+TODO: Use old background image as background
+TODO: Create methods to create a list of a player's shots that whole season
+
 #
