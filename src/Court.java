@@ -44,7 +44,7 @@ public class Court extends JFrame{
     public void paint(Graphics page) {
         final int midx = 250;
         final int midy = 423;
-        setSize(550, 500);
+        setSize(510, 500);
 
         setBackground (Color.white);
         page.setColor (Color.orange);
