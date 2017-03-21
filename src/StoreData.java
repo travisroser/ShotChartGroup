@@ -12,9 +12,9 @@ public class StoreData {
 
     private ArrayList<Season> seasonsList = new ArrayList<Season>();
 
-    StoreData(String fileName){
+    StoreData(){
 
-        File inputFile = new File(fileName);
+        File inputFile = new File("sampleData.txt");
 
         try {
 

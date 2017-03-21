@@ -21,20 +21,14 @@ public class Court extends JApplet{
     private  ArrayList<Game> games;
     private  ArrayList<Player> players;
     private Scanner scanner;
-    /*public static void main(String args[]) {
-        chart = new StoreData(args[0]); //creates all chart data using arg as data text file input
-        seasons = chart.getSeasonsList();
-        Season season = new Season();
-        games = season.getGamesList();
-        Game game = new Game();
-        players = game.getGameRoster();
-    }*/
 
-    public Court(){
-        scanner = new Scanner(System.in); // reads in the file name
-        System.out.println("Please enter a file name: "); // user enters name manually
-        String filename = scanner.next();
-        StoreData newChart = new StoreData(filename);
+    public Court( ArrayList<Season> newSeasonsList ){ //this is what will contain all of the data
+
+//        scanner = new Scanner(System.in); // reads in the file name
+//        System.out.println("Please enter a file name: "); // user enters name manually
+//        String filename = scanner.next();
+//        StoreData newChart = new StoreData(filename);
+
         AddSeasonMenu window = new AddSeasonMenu();
         window.setBounds(415, 30, 300, 300); // Size
         window.setVisible(true);
