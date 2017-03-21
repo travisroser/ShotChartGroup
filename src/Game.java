@@ -27,4 +27,16 @@ public class Game {
     public void addPlayerToGameRoster( Player newPlayer ){gameRoster.add(newPlayer);}
     public ArrayList<Player> getGameRoster(){return gameRoster;}
 
+    //Returns a string representing the game
+    public String toString() {
+        String rosterString = "";
+        for(int i = 0; i < gameRoster.size(); i++) {
+            rosterString += gameRoster.get(i);
+            if(i != gameRoster.size() - 1) {
+                rosterString += ",";
+            }
+        }
+
+        return "Game: {id:" + gameID + ", date: " + gameDate + ", time: " + gameTime + ", [" + rosterString + "]}";
+    }
 }

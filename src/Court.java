@@ -178,7 +178,10 @@ public class Court extends JFrame{
     //This method takes an Arraylist of seasons and returns a sorted array list of seasons.
     private ArrayList<Season> sortSeasons(ArrayList<Season> list) {
         for(int i = 0; i < list.size(); i++) {
+            System.out.print("Season: ");
             System.out.println(list.get(i));
+
+            System.out.println(list.get(i).toString());
         }
         return null; //STUB
     }

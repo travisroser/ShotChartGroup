@@ -95,6 +95,8 @@ public class StoreData {
 
             //done reading file
 
+            //sortSeasonsList(); BROKEN FOR NOW
+
             printData();
 
         } catch (IOException e) {
@@ -102,7 +104,34 @@ public class StoreData {
         }
 
     }
+/* BROKEN
+    //Sorts the seasons list by the season IDs
+    private void sortSeasonsList() {
+        ArrayList<Season> temp = new ArrayList<Season>();
 
+        //Loop through the seasonsList, pushing each order ID into an array, in order
+        for(int i = 0; i < seasonsList.size(); i++) {
+            //An int that holds the value of the season ID at the current index of seasonsList
+            int thisID = Integer.parseInt(seasonsList.get(i).getSeasonID());
+
+            //A loop will iterate until the current ID is greater than the previous one in the temp array
+            //Because this starts at 1, it won't try to sort the first value, which we don't need to do.
+            int index = 0;
+            int comparisonID = 0;
+            while(thisID <= comparisonID && index < temp.size()) {
+                System.out.println("Inside the while loop.");
+                //an int that holds the value of the season ID at the current index - 1 of temp
+                //this will start at 0 and continue growing until the ID is a bigger value than the one we are looking at
+                comparisonID = Integer.parseInt(temp.get(index).getSeasonID());
+
+                index++;
+            }
+            temp.add(index, seasonsList.get(i));
+
+            System.out.println(temp.get(i).getSeasonID());
+        }
+    }
+*/
     public ArrayList<Season> getSeasonsList(){
         return seasonsList;
     }

@@ -21,4 +21,18 @@ public class Season {
     public void addGametoSeason( Game newGame ){gamesList.add(newGame);}
     public ArrayList<Game> getGamesList(){return gamesList;}
 
+    //Prints a string representing the array list of games
+    public String toString() {
+        String result = "[";
+
+        for(int i = 0; i < getGamesList().size(); i++) {
+            result += getGamesList().get(i).toString();
+            if(i != getGamesList().size() - 1) {
+                result += ",";
+            }
+        }
+        result += "]";
+        return result;
+    }
+
 }
