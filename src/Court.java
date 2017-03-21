@@ -18,19 +18,25 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Court extends JApplet{
-   private  ArrayList<Season> seasons;
+public class Court extends JFrame{
+    private  ArrayList<Season> seasons;
     private  ArrayList<Game> games;
     private  ArrayList<Player> players;
     private Scanner scanner;
-    JMenu seasonsMenu, gamesMenu, playersMenu;
     boolean firstSeasonsClick, firstGamesClick;
 
     public Court( ArrayList<Season> newSeasonsList ){ //this is what will contain all of the data
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(500, 500);
+        setLocation(250, 40);
+        setTitle("Basketball Court");
+        setVisible(true);
+        setFocusable(true);
+        repaint();
         seasons = newSeasonsList;
         firstSeasonsClick = firstGamesClick = true;
         AddSeasonMenu window = new AddSeasonMenu();
-        window.setBounds(415, 30, 300, 300); // Size
+        window.setBounds(750, 40, 300, 300); // Size
         window.setVisible(true);
         this.setVisible(true);
     }
@@ -62,63 +68,87 @@ public class Court extends JApplet{
     }
 
     public class AddSeasonMenu extends JFrame {
-        private JMenuBar menuBar = new JMenuBar(); // Window menu bar
-        private JMenuItem newSeason;
+        private JMenuBar menuBar; // Window menu bar
+        private JMenu seasonsMenu, gamesMenu, playersMenu;
 
         public AddSeasonMenu() {
             setDefaultCloseOperation(EXIT_ON_CLOSE);
+            menuBar = new JMenuBar();
+            menuBar.setName("UofA Basketball");
             setJMenuBar(menuBar);
             seasonsMenu = new JMenu("Seasons");
 
 
-            for(int index = 0; index < seasons.size(); index++)
-                seasonsMenu.add(seasons.get(index).getSeasonID());
+            for(int index = 0; index < seasons.size(); index++) {
+                JMenuItem season = new JMenuItem(seasons.get(index).getSeasonID());
+                season.addActionListener(new SeasonListener());
+                seasonsMenu.add(season);
+            }
 
-           seasonsMenu.addActionListener(new SeasonListener());
-           menuBar.add(seasonsMenu);
+            menuBar.add(seasonsMenu);
         }
 
-        class SeasonListener implements ActionListener {
+        public class SeasonListener implements ActionListener {
             public void actionPerformed(ActionEvent e) {
-                if(!firstSeasonsClick)
+                System.out.println("SeasonListener working");
+                if(!firstSeasonsClick) {
                     menuBar.remove(gamesMenu);
-
+                    System.out.println("gamesMenu Removed");
+                }
                 if(!firstGamesClick)
                     menuBar.remove(playersMenu);
 
                 gamesMenu = new JMenu("Games");
-                int season = e.getID();
+                int index = 1;
+                String season = e.paramString();
+                while(!season.contains("cmd=" + index))
+                    index++;
+                season = "" + index;
                 System.out.println("season is " + season);
-                games = seasons.get(seasons.indexOf(season)).getGamesList();
-                for(int index = 0; index < games.size(); index++)
-                    gamesMenu.add(games.get(index).getGameID());
+                games = seasons.get(index-1).getGamesList();
+                for(index = 0; index < games.size(); index++){
+                    JMenuItem game = new JMenuItem(games.get(index).getGameID());
+                    game.addActionListener(new GameListener());
+                    gamesMenu.add(game);
+                }
 
-                gamesMenu.addActionListener(new GameListener());
                 menuBar.add(gamesMenu);
-
+                System.out.println("gamesMenu Added");
                 firstSeasonsClick = false;
                 firstGamesClick = true;
             }
         }
 
-        class GameListener implements ActionListener {
+       public class GameListener implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 if(!firstGamesClick)
                     menuBar.remove(playersMenu);
 
                 playersMenu = new JMenu("Players");
-                int game = e.getID();
+                int index = 1;
+                String game = e.paramString();
+                while(!game.contains("cmd=" + index))
+                    index++;
+                game = "" + index;
+                System.out.println("game is " + game);
+                players = games.get(index-1).getGameRoster();
                 players = games.get(games.indexOf(game)).getGameRoster();
-                for(int index = 0; index < players.size(); index++)
-                    playersMenu.add(players.get(index).getLastName() + ", " + players.get(index).getFirstName());
+                for(index = 0; index < players.size(); index++){
+                    JMenuItem player = new JMenuItem(players.get(index).getLastName() + ", " + players.get(index).getFirstName());
+                    player.addActionListener(new PlayerListener());
+                    playersMenu.add(player);
+                }
 
                 menuBar.add(playersMenu);
                 firstGamesClick = false;
             }
         }
 
+        public class PlayerListener implements ActionListener {
+            public void actionPerformed(ActionEvent e){
+
+            }
+        }
+
     }
 }
-
-
-
