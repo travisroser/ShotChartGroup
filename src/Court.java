@@ -32,11 +32,11 @@ public class Court extends JFrame{
         setTitle("Basketball Court");
         setVisible(true);
         setFocusable(true);
-        repaint();
         seasons = newSeasonsList;
         firstSeasonsClick = firstGamesClick = true;
-        AddSeasonMenu window = new AddSeasonMenu();
+        AddMenus window = new AddMenus();
         window.setBounds(750, 40, 300, 300); // Size
+        window.setName("UofA Basketball Game Info");
         window.setVisible(true);
         this.setVisible(true);
     }
@@ -67,15 +67,14 @@ public class Court extends JFrame{
         page.drawRect (-250, -422, 500, 470);
     }
 
-    public class AddSeasonMenu extends JFrame {
+    public class AddMenus extends JFrame {
         private JMenuBar menuBar; // Window menu bar
         private JMenu seasonsMenu, gamesMenu, playersMenu;
 
-        public AddSeasonMenu() {
+        public AddMenus() {
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             menuBar = new JMenuBar();
-            menuBar.setName("UofA Basketball");
-            setJMenuBar(menuBar);
+            setTitle("UofA Basketball");
             seasonsMenu = new JMenu("Seasons");
 
 
@@ -86,18 +85,20 @@ public class Court extends JFrame{
             }
 
             menuBar.add(seasonsMenu);
+            setJMenuBar(menuBar);
         }
 
-        public class SeasonListener implements ActionListener {
-            public void actionPerformed(ActionEvent e) {
+            public class SeasonListener implements ActionListener {
+                public void actionPerformed(ActionEvent e) {
                 System.out.println("SeasonListener working");
                 if(!firstSeasonsClick) {
                     menuBar.remove(gamesMenu);
-                    System.out.println("gamesMenu Removed");
+                    setJMenuBar(menuBar);
                 }
-                if(!firstGamesClick)
+                if(!firstGamesClick) {
                     menuBar.remove(playersMenu);
-
+                    setJMenuBar(menuBar);
+                }
                 gamesMenu = new JMenu("Games");
                 int index = 1;
                 String season = e.paramString();
@@ -113,7 +114,7 @@ public class Court extends JFrame{
                 }
 
                 menuBar.add(gamesMenu);
-                System.out.println("gamesMenu Added");
+                setJMenuBar(menuBar);
                 firstSeasonsClick = false;
                 firstGamesClick = true;
             }
@@ -121,9 +122,10 @@ public class Court extends JFrame{
 
        public class GameListener implements ActionListener {
             public void actionPerformed(ActionEvent e) {
-                if(!firstGamesClick)
+                if(!firstGamesClick) {
                     menuBar.remove(playersMenu);
-
+                    setJMenuBar(menuBar);
+                }
                 playersMenu = new JMenu("Players");
                 int index = 1;
                 String game = e.paramString();
@@ -140,6 +142,7 @@ public class Court extends JFrame{
                 }
 
                 menuBar.add(playersMenu);
+                setJMenuBar(menuBar);
                 firstGamesClick = false;
             }
         }
