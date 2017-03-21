@@ -88,9 +88,8 @@ public class Court extends JFrame{
             setJMenuBar(menuBar);
         }
 
-            public class SeasonListener implements ActionListener {
-                public void actionPerformed(ActionEvent e) {
-                System.out.println("SeasonListener working");
+        public class SeasonListener implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
                 if(!firstSeasonsClick) {
                     menuBar.remove(gamesMenu);
                     setJMenuBar(menuBar);
@@ -120,7 +119,7 @@ public class Court extends JFrame{
             }
         }
 
-       public class GameListener implements ActionListener {
+        public class GameListener implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 if(!firstGamesClick) {
                     menuBar.remove(playersMenu);
@@ -134,7 +133,6 @@ public class Court extends JFrame{
                 game = "" + index;
                 System.out.println("game is " + game);
                 players = games.get(index-1).getGameRoster();
-                players = games.get(games.indexOf(game)).getGameRoster();
                 for(index = 0; index < players.size(); index++){
                     JMenuItem player = new JMenuItem(players.get(index).getLastName() + ", " + players.get(index).getFirstName());
                     player.addActionListener(new PlayerListener());
@@ -149,6 +147,24 @@ public class Court extends JFrame{
 
         public class PlayerListener implements ActionListener {
             public void actionPerformed(ActionEvent e){
+                String player = e.paramString();
+                int beginIndex = player.indexOf("cmd=")+4;
+                int endIndex = player.indexOf(",", beginIndex);
+                String lastName = player.substring(beginIndex, endIndex);
+
+                beginIndex = endIndex+1;
+                endIndex = player.indexOf(",", beginIndex);
+                String firstName = player.substring(beginIndex, endIndex);
+
+                player = firstName + " " + lastName;
+                System.out.println("Player is " + player);
+
+                int index = 0;
+                while(!firstName.equals(players.get(index).getFirstName()) && !lastName.equals(players.get(index).getLastName()))
+                    index++;
+
+                System.out.println("Player at index " + index + " in players is " + players.get(index).getFirstName() + " " + players.get(index).getLastName());
+
 
             }
         }
