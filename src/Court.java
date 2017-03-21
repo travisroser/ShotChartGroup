@@ -13,6 +13,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,17 +23,16 @@ public class Court extends JApplet{
     private  ArrayList<Game> games;
     private  ArrayList<Player> players;
     private Scanner scanner;
+    JMenu seasonsMenu, gamesMenu, playersMenu;
+    boolean firstSeasonsClick, firstGamesClick;
 
     public Court( ArrayList<Season> newSeasonsList ){ //this is what will contain all of the data
-
-//        scanner = new Scanner(System.in); // reads in the file name
-//        System.out.println("Please enter a file name: "); // user enters name manually
-//        String filename = scanner.next();
-//        StoreData newChart = new StoreData(filename);
-
+        seasons = newSeasonsList;
+        firstSeasonsClick = firstGamesClick = true;
         AddSeasonMenu window = new AddSeasonMenu();
         window.setBounds(415, 30, 300, 300); // Size
         window.setVisible(true);
+        this.setVisible(true);
     }
 
     public void paint(Graphics page) {
@@ -67,32 +68,55 @@ public class Court extends JApplet{
         public AddSeasonMenu() {
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setJMenuBar(menuBar);
-            JMenu seasonMenu = new JMenu("Seasons");
+            seasonsMenu = new JMenu("Seasons");
 
-            for(int index = 0; index < seasons.size(); index++){
-                newSeason = seasonMenu.add(seasons.get(index).toString());
-            }
 
-            /*newItem = fileMenu.add("New");
-            openItem = fileMenu.add("Open");
-            closeItem = fileMenu.add("Close");
-            fileMenu.addSeparator();
-            saveItem = fileMenu.add("Save");
-            saveAsItem = fileMenu.add("Save As...");
-            fileMenu.addSeparator();
-            printItem = fileMenu.add("Print");
-            elementMenu.add(lineItem = new JRadioButtonMenuItem("Line", true));
-            elementMenu.add(rectangleItem = new JRadioButtonMenuItem("Rectangle", false));
-            elementMenu.add(circleItem = new JRadioButtonMenuItem("Circle", false));
-            ButtonGroup types = new ButtonGroup();
-            types.add(lineItem);
-            types.add(rectangleItem);
-            types.add(circleItem);
-            elementMenu.addSeparator();
-            elementMenu.add(redItem = new JCheckBoxMenuItem("Red", false));
-            elementMenu.add(yellowItem = new JCheckBoxMenuItem("Yellow", false));*/
-            menuBar.add(seasonMenu);
+            for(int index = 0; index < seasons.size(); index++)
+                seasonsMenu.add(seasons.get(index).getSeasonID());
+
+           seasonsMenu.addActionListener(new SeasonListener());
+           menuBar.add(seasonsMenu);
         }
+
+        class SeasonListener implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
+                if(!firstSeasonsClick)
+                    menuBar.remove(gamesMenu);
+
+                if(!firstGamesClick)
+                    menuBar.remove(playersMenu);
+
+                gamesMenu = new JMenu("Games");
+                int season = e.getID();
+                System.out.println("season is " + season);
+                games = seasons.get(seasons.indexOf(season)).getGamesList();
+                for(int index = 0; index < games.size(); index++)
+                    gamesMenu.add(games.get(index).getGameID());
+
+                gamesMenu.addActionListener(new GameListener());
+                menuBar.add(gamesMenu);
+
+                firstSeasonsClick = false;
+                firstGamesClick = true;
+            }
+        }
+
+        class GameListener implements ActionListener {
+            public void actionPerformed(ActionEvent e) {
+                if(!firstGamesClick)
+                    menuBar.remove(playersMenu);
+
+                playersMenu = new JMenu("Players");
+                int game = e.getID();
+                players = games.get(games.indexOf(game)).getGameRoster();
+                for(int index = 0; index < players.size(); index++)
+                    playersMenu.add(players.get(index).getLastName() + ", " + players.get(index).getFirstName());
+
+                menuBar.add(playersMenu);
+                firstGamesClick = false;
+            }
+        }
+
     }
 }
 
