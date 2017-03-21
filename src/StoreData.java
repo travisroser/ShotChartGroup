@@ -18,7 +18,7 @@ public class StoreData {
 
         try {
 
-            Scanner reader = new Scanner( inputFile );
+            Scanner reader = new Scanner(inputFile);
             String currLine;
             ArrayList<Character> newChars = new ArrayList<Character>();
             int dataType;
@@ -101,6 +101,10 @@ public class StoreData {
             e.printStackTrace();
         }
 
+    }
+
+    public ArrayList<Season> getSeasonsList(){
+        return seasonsList;
     }
 
     public boolean checkSeason(Season currSeason){

@@ -6,8 +6,40 @@ package src;
 
 import javax.swing.JApplet;
 import java.awt.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Court extends JApplet{
+   private  ArrayList<Season> seasons;
+    private  ArrayList<Game> games;
+    private  ArrayList<Player> players;
+    private Scanner scanner;
+    /*public static void main(String args[]) {
+        chart = new StoreData(args[0]); //creates all chart data using arg as data text file input
+        seasons = chart.getSeasonsList();
+        Season season = new Season();
+        games = season.getGamesList();
+        Game game = new Game();
+        players = game.getGameRoster();
+    }*/
+
+    public Court(){
+        scanner = new Scanner(System.in); // reads in the file name
+        System.out.println("Please enter a file name: "); // user enters name manually
+        String filename = scanner.next();
+        StoreData newChart = new StoreData(filename);
+        AddSeasonMenu window = new AddSeasonMenu();
+        window.setBounds(415, 30, 300, 300); // Size
+        window.setVisible(true);
+    }
+
     public void paint(Graphics page) {
         final int midx = 250;
         final int midy = 423;
@@ -34,6 +66,40 @@ public class Court extends JApplet{
         page.drawRect (-250, -422, 500, 470);
     }
 
+    public class AddSeasonMenu extends JFrame {
+        private JMenuBar menuBar = new JMenuBar(); // Window menu bar
+        private JMenuItem newSeason;
+
+        public AddSeasonMenu() {
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+            setJMenuBar(menuBar);
+            JMenu seasonMenu = new JMenu("Seasons");
+
+            for(int index = 0; index < seasons.size(); index++){
+                newSeason = seasonMenu.add(seasons.get(index).toString());
+            }
+
+            /*newItem = fileMenu.add("New");
+            openItem = fileMenu.add("Open");
+            closeItem = fileMenu.add("Close");
+            fileMenu.addSeparator();
+            saveItem = fileMenu.add("Save");
+            saveAsItem = fileMenu.add("Save As...");
+            fileMenu.addSeparator();
+            printItem = fileMenu.add("Print");
+            elementMenu.add(lineItem = new JRadioButtonMenuItem("Line", true));
+            elementMenu.add(rectangleItem = new JRadioButtonMenuItem("Rectangle", false));
+            elementMenu.add(circleItem = new JRadioButtonMenuItem("Circle", false));
+            ButtonGroup types = new ButtonGroup();
+            types.add(lineItem);
+            types.add(rectangleItem);
+            types.add(circleItem);
+            elementMenu.addSeparator();
+            elementMenu.add(redItem = new JCheckBoxMenuItem("Red", false));
+            elementMenu.add(yellowItem = new JCheckBoxMenuItem("Yellow", false));*/
+            menuBar.add(seasonMenu);
+        }
+    }
 }
 
 
