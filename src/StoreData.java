@@ -95,7 +95,7 @@ public class StoreData {
 
             //done reading file
 
-            //sortSeasonsList(); BROKEN FOR NOW
+            //sortSeasonsList();
 
             printData();
 
@@ -104,7 +104,7 @@ public class StoreData {
         }
 
     }
-/* BROKEN
+
     //Sorts the seasons list by the season IDs
     private void sortSeasonsList() {
         ArrayList<Season> temp = new ArrayList<Season>();
@@ -131,7 +131,7 @@ public class StoreData {
             System.out.println(temp.get(i).getSeasonID());
         }
     }
-*/
+
     public ArrayList<Season> getSeasonsList(){
         return seasonsList;
     }
