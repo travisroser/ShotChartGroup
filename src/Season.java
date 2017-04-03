@@ -10,6 +10,7 @@ public class Season {
 
     private String seasonID;
     private ArrayList<Game> gamesList = new ArrayList<Game>();
+    private Sorts sorts = new Sorts();
 
     Season(){
 
@@ -18,8 +19,11 @@ public class Season {
     //GETTERS AND SETTERS
     public void setSeasonID( String id ){seasonID = id;}
     public String getSeasonID(){return seasonID;}
-    public void addGametoSeason( Game newGame ){gamesList.add(newGame);}
-    public ArrayList<Game> getGamesList(){return gamesList;}
+    public void addGametoSeason( Game newGame ){
+        gamesList.add(newGame);
+        sorts.sortGamesList(gamesList);
+    }
+    public ArrayList<Game> getGamesList(){return sorts.sortGamesList(gamesList);}
 
     //Prints a string representing the array list of games
     public String toString() {

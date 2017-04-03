@@ -12,6 +12,7 @@ public class Game {
     private ArrayList<Player> gameRoster = new ArrayList<Player>();
     private String gameDate;
     private String gameTime;
+    private Sorts sorts = new Sorts();
 
     Game(){
 
@@ -24,8 +25,11 @@ public class Game {
     public String getGameDate(){return gameDate;}
     public void setGameID( String num ){gameID = num;}
     public String getGameID(){return gameID;}
-    public void addPlayerToGameRoster( Player newPlayer ){gameRoster.add(newPlayer);}
-    public ArrayList<Player> getGameRoster(){return gameRoster;}
+    public void addPlayerToGameRoster( Player newPlayer ){
+        gameRoster.add(newPlayer);
+        sorts.sortPlayersList(gameRoster);
+    }
+    public ArrayList<Player> getGameRoster(){return sorts.sortPlayersList(gameRoster);}
 
     //Returns a string representing the game
     public String toString() {
