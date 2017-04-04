@@ -13,6 +13,7 @@ public class Game {
     private String gameDate;
     private String gameTime;
     private Sorts sorts = new Sorts();
+    private String homeORaway;
 
     Game(){
 
@@ -30,6 +31,8 @@ public class Game {
         sorts.sortPlayersList(gameRoster);
     }
     public ArrayList<Player> getGameRoster(){return sorts.sortPlayersList(gameRoster);}
+    public void setHomeORaway( String newData ){homeORaway = newData;}
+    public String getHomeORaway(){return homeORaway;}
 
     //Returns a string representing the game
     public String toString() {
