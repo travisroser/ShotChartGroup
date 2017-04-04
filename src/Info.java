@@ -28,8 +28,8 @@ public class Info extends JPanel {
     public void setData(Game g, Player p) {
         game = g;
         player = p;
-        System.out.println("Game changed to: " + g.toString());
-        System.out.println("Player changed to: " + p.toString());
+        System.out.println("Game changed to: " + g.getGameDate() + " at " + g.getGameTime());
+        System.out.println("Player changed to: " + p.getFirstName() + " " + p.getLastName());
         reDraw();
     }
 
@@ -44,7 +44,7 @@ public class Info extends JPanel {
 
     private void drawPanel() {
         //Draw game info
-        JLabel gameLabel = new JLabel("Game " + game.getGameID() + " on " + game.getGameDate() + " at " + game.getGameDate());
+        JLabel gameLabel = new JLabel("Game " + game.getGameID() + " on " + game.getGameDate() + " at " + game.getGameTime());
         gameLabel.setFont(new Font("Helvetica",1,12));
         add(gameLabel);
 

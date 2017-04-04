@@ -35,7 +35,14 @@ public class Court extends JPanel implements MouseMotionListener {
 
     //Setter method, adds shots that the paint method will draw onto the court
     public void setShotsToDraw(ArrayList<Shots> input) {
-        System.out.println("Adding shots to draw:" + input);
+        System.out.println("Adding shots to draw:");
+        for(int index = 0; index < input.size(); index++){
+            Shots shot = input.get(index);
+            System.out.print("{" + shot.getxCoordinate() + ", " +  shot.getyCoordinate() + "}");
+            if(index < input.size() - 1)
+                System.out.print(", ");
+        }
+        System.out.println();
         shotsToDraw = input;
         repaint();
     }
@@ -72,7 +79,7 @@ public class Court extends JPanel implements MouseMotionListener {
         for(int i = 0; i < shotsToDraw.size(); i++) {
             Shots shot = shotsToDraw.get(i);
 
-            System.out.println("Drawing " + (shot.getmissOrMake() == '1'?"Miss":"Make") + " at: {X: " + shot.getxCoordinate() + ", Y: " + shot.getyCoordinate() + "}.");
+            System.out.println("Drawing " + (shot.getmissOrMake() == '1'?"Make":"Miss") + " at: {X: " + shot.getxCoordinate() + ", Y: " + shot.getyCoordinate() + "}.");
 
             g.setColor(Color.black);
             g.drawOval(Integer.parseInt(shot.getxCoordinate()) - 6 , Integer.parseInt(shot.getyCoordinate()) - 6, 12, 12);  // DRAWS CIRCLE FOR A SHOT
