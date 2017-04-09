@@ -79,10 +79,16 @@ public class Court extends JPanel implements MouseMotionListener {
         for(int i = 0; i < shotsToDraw.size(); i++) {
             Shots shot = shotsToDraw.get(i);
 
-            System.out.println("Drawing " + (shot.getmissOrMake() == '1'?"Make":"Miss") + " at: {X: " + shot.getxCoordinate() + ", Y: " + shot.getyCoordinate() + "}.");
+            double y = Integer.parseInt(shot.getxCoordinate()) * 4.7;
+            int yCor = (int)Math.round(y);
+            int xCor = (Integer.parseInt(shot.getyCoordinate()) * 5);
+            double dist = (xCor)*(xCor)+(yCor * yCor);
+            dist = Math.sqrt(dist);
 
-            g.setColor(Color.black);
-            g.drawOval(Integer.parseInt(shot.getxCoordinate()) - 6 , Integer.parseInt(shot.getyCoordinate()) - 6, 12, 12);  // DRAWS CIRCLE FOR A SHOT
+
+            System.out.println("Drawing " + (shot.getmissOrMake() == '1'?"Make":"Miss") + " at: {X: " + xCor + ", Y: " + yCor + "}.");
+            System.out.println(" Distance from basket: " + dist);
+
 
             //Change color depending on if the shot was a miss or a make
             if(shot.getmissOrMake() == '1') {
@@ -91,7 +97,7 @@ public class Court extends JPanel implements MouseMotionListener {
                 g.setColor(Color.RED); //MISS
             }
 
-            g.fillOval(Integer.parseInt(shot.getxCoordinate()) - 5, Integer.parseInt(shot.getyCoordinate()) - 5, 10, 10);  // DRAWS CIRCLE FOR A SHOT
+            g.drawOval( xCor - 5, (yCor - 5), 10, 10);  // DRAWS CIRCLE FOR A SHOT
         }
 
     }

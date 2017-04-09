@@ -5,6 +5,8 @@ package src;
  */
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -14,7 +16,7 @@ public class Info extends JPanel {
     private Game game;
 
     public Info() {
-        setPreferredSize(new Dimension(300, 500));
+        setPreferredSize(new Dimension(100, 500));
         setBackground(Color.lightGray);
         setLayout(new GridLayout(0,1, 0, 0));
 
@@ -68,7 +70,13 @@ public class Info extends JPanel {
                 missOrMake = "Make";
             }
 
-            shotsListModel.addElement("Shot #1: " + missOrMake + " from {" + shot.getxCoordinate() + ", " + shot.getyCoordinate() + "}");
+            double y = Integer.parseInt(shot.getxCoordinate()) * 4.7;
+            int yCor = (int)Math.round(y);
+            int xCor = (Integer.parseInt(shot.getyCoordinate()) * 5);
+            double dist = (xCor)*(xCor)+(yCor * yCor);
+            dist = Math.sqrt(dist);
+
+            shotsListModel.addElement("Shot #" + (i+1) + ": " + missOrMake + " from {" + xCor + ", " + yCor + "}. Distance: " + (int)dist);
         }
 
         JList shotsList = new JList(shotsListModel);
