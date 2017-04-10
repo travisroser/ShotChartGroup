@@ -10,11 +10,12 @@ import java.lang.Integer;
 
 public class StoreData {
 
+    private ArrayList<Team> teamsList = new ArrayList<Team>();
     private ArrayList<Season> seasonsList = new ArrayList<Season>();
 
     StoreData(){
 
-        File inputFile = new File("sampleData.txt");
+        File inputFile = new File("test2.csv");
 
         try {
 
@@ -22,6 +23,7 @@ public class StoreData {
             String currLine;
             ArrayList<Character> newChars = new ArrayList<Character>();
             int dataType;
+            int lineNumber = 1;
 
             while ( reader.hasNextLine() ){ //checking for end of file
 
@@ -33,10 +35,11 @@ public class StoreData {
                 Game newGame = new Game();
                 Player newPlayer = new Player();
                 Shots newShot = new Shots();
+                Team newTeam = new Team();
 
                 for( int i = 0; i < currLine.length(); i++ ){ //traverse each line
 
-                    while( currLine.charAt(i) != ' ' ){
+                    while( currLine.charAt(i) != ',' ){
                         newChars.add(currLine.charAt(i));
                         i++;
                         if( i == currLine.length() ){
@@ -44,38 +47,56 @@ public class StoreData {
                         }
                     }
 
-                    if( dataType == 0 ){ //season ID
-                        newSeason.setSeasonID( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                    if( dataType == 0 ){ //shot number
+                        newShot.setShotNumber( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").replace("s","").replace("h","").replace("o","").replace("t","").trim() );
+                        //newSeason.setSeasonID( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                     }
-                    else if( dataType == 1 ){ //game ID
-                        newGame.setGameID( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                    else if( dataType == 1 ){ //game half
+                        newShot.setShotHalf( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                        //newGame.setGameID( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                     }
-                    else if( dataType == 2 ){ //game date
-                        newGame.setGameDate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                    else if( dataType == 2 ){ //player ID
+                        newPlayer.setPlayerID( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                     }
-                    else if( dataType == 2 ){ //game date
-                        newGame.setGameDate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
-                    }
-                    else if( dataType == 3 ){ //game time
-                        newGame.setGameTime( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
-                    }
-                    else if( dataType == 4 ){ //player firstName
+                    else if( dataType == 3 ){ //first name
                         newPlayer.setFirstName( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                        //newGame.setGameDate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                     }
-                    else if( dataType == 5 ){ //player lastName
+                    else if( dataType == 4 ){ //last name
                         newPlayer.setLastName( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                        //newGame.setGameDate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                     }
-                    else if( dataType == 6 ){ //player jerseyNumber
-                        newPlayer.setPlayerNumber( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                    else if( dataType == 5 ){ //shot MissORMake
+                        if( (newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim()).matches( "made" ) ){
+                            newShot.setMissOrMake("1");
+                        }
+                        else{
+                            newShot.setMissOrMake("0");
+                        }
+                        //newGame.setGameTime( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                     }
-                    else if( dataType == 7 ){ //shot xCoordinate
-                        newShot.setxCoordinate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                    else if( dataType == 6 ){ //team
+                        newTeam.setTeamName( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                        //newPlayer.setFirstName( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                     }
-                    else if( dataType == 8 ){ //shot yCoordinate
+                    else if( dataType == 7 ){ //opponent
+                        newGame.setGameID( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                        //newPlayer.setLastName( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                    }
+                    else if( dataType == 8 ){ //homeORaway
+                        newGame.setHomeORaway( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                    }
+                    else if( dataType == 9 ){ //left
                         newShot.setyCoordinate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                        //newPlayer.setPlayerNumber( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                     }
-                    else if( dataType == 9 ){ //shot missORmake
-                        newShot.setMissOrMake( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                    else if( dataType == 10 ){ //top
+                        newShot.setxCoordinate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                        //newShot.setxCoordinate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                    }
+                    else if( dataType == 11 ){ //season
+                        newSeason.setSeasonID( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                        //newShot.setyCoordinate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                     }
 
                     dataType++;
@@ -83,19 +104,26 @@ public class StoreData {
 
                 }
 
-                //newPlayer.addShot( newShot );
-                newGame.addPlayerToGameRoster( newPlayer );
-                newSeason.addGametoSeason( newGame );
+                if(lineNumber == 1){
+                    lineNumber++;
+                }
+                else {
+                    //newPlayer.addShot( newShot );
+                    newGame.addPlayerToGameRoster(newPlayer);
+                    newSeason.addGametoSeason(newGame);
+                    newTeam.addSeasonToTeam(newSeason);
 
-                checkSeason( newSeason );
-                checkGame( newSeason );
-                checkPlayer( newSeason, newShot );
+                    checkTeam(newTeam);
+                    checkSeason(newSeason);
+                    checkGame(newSeason);
+                    checkPlayer(newSeason, newShot);
+                }
 
             }
 
             //done reading file
 
-            printData();
+            //printData();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,6 +161,17 @@ public class StoreData {
     public ArrayList<Season> getSeasonsList(){
         return seasonsList;
     }
+    public ArrayList<Team> getTeamsList(){return teamsList;}
+
+    public boolean checkTeam( Team currTeam ){
+        for( int i = 0; i < teamsList.size(); i++ ){
+            if( teamsList.get(i).getTeamName().matches( currTeam.getTeamName() ) ){
+                return false;
+            }
+        }
+        teamsList.add(currTeam);
+        return true;
+    }
 
     public boolean checkSeason(Season currSeason){
         for( int i = 0; i < seasonsList.size(); i++ ){
@@ -149,7 +188,9 @@ public class StoreData {
             if( seasonsList.get(i).getSeasonID().matches(currSeason.getSeasonID()) ) { //finds matching season
                 for ( int j = 0; j < seasonsList.get(i).getGamesList().size(); j++ ) {
                     if (seasonsList.get(i).getGamesList().get(j).getGameID().matches(currSeason.getGamesList().get(0).getGameID()) ) { //finds matching game
-                        return false; //if a game ID in the matching season matches the current game ID then don't create a new game in the season;
+                        if( seasonsList.get(i).getGamesList().get(j).getHomeORaway().matches(currSeason.getGamesList().get(0).getHomeORaway()) ){
+                            return false;
+                        }
                     }
                 }
                 seasonsList.get(i).getGamesList().add(currSeason.getGamesList().get(0)); //if never finds matching ID's, create new game in matching season
@@ -189,7 +230,7 @@ public class StoreData {
             for( int j = 0; j < seasonsList.get(i).getGamesList().size(); j++ ){
                 System.out.println("    GAME "+seasonsList.get(i).getGamesList().get(j).getGameID()+", on "+seasonsList.get(i).getGamesList().get(j).getGameDate().toString()+" at "+seasonsList.get(i).getGamesList().get(j).getGameTime()+":\n");
                 for( int k = 0; k < seasonsList.get(i).getGamesList().get(j).getGameRoster().size(); k++ ){
-                    System.out.println("        "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getLastName()+", "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getFirstName()+" ("+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getPlayerNumber()+")\t\t\t SHOTS MADE: "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getShotsMade()+" \tSHOTS MISSED: "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getShotsMissed());
+                    //System.out.println("        "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getLastName()+", "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getFirstName()+" ("+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getPlayerNumber()+")\t\t\t SHOTS MADE: "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getShotsMade()+" \tSHOTS MISSED: "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getShotsMissed());
                 }
                 System.out.println();
             }

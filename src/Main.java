@@ -77,6 +77,8 @@ public class Main {
 
             StoreData data = new StoreData();
 
+            ArrayList<Team> newlist = data.getTeamsList();
+
             //Create the menu bar.
             menuBar = new JMenuBar();
 

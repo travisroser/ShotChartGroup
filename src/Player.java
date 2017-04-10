@@ -10,7 +10,7 @@ public class Player {
 
     private String firstName;
     private String lastName;
-    private String playerNumber;
+    private String playerID;
     private String shotNumber;
     private ArrayList<Shots> shotsList = new ArrayList<Shots>();
     private ArrayList<Season> seasonsList = new ArrayList<Season>();
@@ -33,8 +33,8 @@ public class Player {
     public String getShotNumber(){return shotNumber;}
     public void addShot( Shots newShot ){shotsList.add(newShot);}
     public ArrayList<Shots> getShotsList(){return shotsList;}
-    public void setPlayerNumber( String num ){playerNumber = num;}
-    public String getPlayerNumber(){return playerNumber;}
+    public void setPlayerID( String num ){playerID = num;}
+    public String getPlayerID(){return playerID;}
     public void setFirstName( String name ){firstName = name;}
     public String getFirstName(){return firstName;}
     public void setLastName( String name ){lastName = name;}
@@ -57,6 +57,8 @@ public class Player {
         }
         return result;
     }
+
+    public String getPlayerNumber(){return "0";}
 
     public ArrayList<Shots> getShotsFromSeason( Season currSeason ){
         ArrayList<Shots> shotList = new ArrayList<Shots>();

@@ -1,12 +1,2 @@
-2016 1 2/1/2016 7:00pm Kadeem Allen 5 10 10 1
-2017 1 2/1/2016 7:00pm Keanu Pinder 25 5 0 0
-2017 1 2/1/2016 7:00pm Kobi Simons 2 1 10 1
-2016 1 2/1/2016 7:00pm Kadeem Allen 5 10 10 0
-2017 1 2/1/2016 7:00pm Kadeem Allen 5 6 10 1
-2016 3 2/3/2016 7:00pm Kadeem Allen 5 10 12 0
-2016 4 2/5/2016 7:00pm Kadeem Allen 5 10 10 1
-2016 2 2/2/2016 7:00pm Kadeem Allen 5 10 10 0
-2016 1 2/1/2016 7:00pm Kadeem Allen 5 10 13 1
-2016 1 2/1/2016 7:00pm Kadeem Allen 5 11 10 0
-2016 1 2/1/2016 7:00pm Kadeem Allen 5 10 10 0
-2017 1 2/5/2017 7:00pm Kadeem Allen 5 10 10 1
+shot0,1,3134882,Dusan,Ristic,made,Arizona , Oregon ,away,7,34,2016-2017
+shot1,1,3134882,Dusan,Ristic,made,Arizona , Oregon ,away,3,30,2016-2017
