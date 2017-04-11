@@ -70,7 +70,7 @@ public class Main {
 
         public JMenuBar createMenuBar() {
             JMenuBar menuBar;
-            JMenu menu, gamesMenu, playersMenu;
+            JMenu menu, seasonsMenu, gamesMenu, playersMenu;
             JMenuItem menuItem;
             JRadioButtonMenuItem rbMenuItem;
             JCheckBoxMenuItem cbMenuItem;
@@ -82,48 +82,62 @@ public class Main {
             //Create the menu bar.
             menuBar = new JMenuBar();
 
-            //Build the first menu.
-            menu = new JMenu("Seasons");
+            // Build the first menu
+            menu = new JMenu("Teams");
 
-            //loop through all seasons
-            for(int i = 0; i < data.getSeasonsList().size(); i++) {
-                //Set a variable for this season
-                Season season = data.getSeasonsList().get(i);
-                //Get the games for this season
-                ArrayList<Game> games = season.getGamesList();
+            // loop through all the teams
+            for(int i = 0; i < data.getTeamsList().size(); i++){
+                //Set a variable for this team
+               Team team = data.getTeamsList().get(i);
+                //Get the seasons for this season
+                ArrayList<Season> seasons = team.getSeasonList();
 
                 menu.addSeparator();
 
-                gamesMenu = new JMenu(Integer.toString(i));
-                gamesMenu.setMnemonic(KeyEvent.VK_S);
+                seasonsMenu = new JMenu(Integer.toString(i));
+                seasonsMenu.setMnemonic(KeyEvent.VK_S);
 
-                //Loop through and add all games
-                for(int j = 0; j < games.size(); j++) {
-                    final Game game = games.get(j);
+                //loop through all seasons
+                for(int j = 0; j < data.getSeasonsList().size(); j++) {
+                    //Set a variable for this season
+                    Season season = data.getSeasonsList().get(j);
+                    //Get the games for this season
+                    ArrayList<Game> games = season.getGamesList();
 
-                    gamesMenu.addSeparator();
+                    menu.addSeparator();
 
-                    playersMenu = new JMenu("Game " + game.getGameID() + " from " + game.getGameDate());
-                    playersMenu.setMnemonic(KeyEvent.VK_S);
+                    gamesMenu = new JMenu(Integer.toString(j));
+                    gamesMenu.setMnemonic(KeyEvent.VK_S);
 
-                    //Add all players to the games list
-                    ArrayList<Player> players = game.getGameRoster();
-                    for(int k = 0; k < players.size(); k++) {
-                        final Player player = players.get(k);
+                    //Loop through and add all games
+                    for(int k = 0; k < games.size(); k++) {
+                        final Game game = games.get(k);
 
-                        menuItem = new JMenuItem(new AbstractAction(player.getLastName() + ", " + player.getFirstName() + " (" + player.getPlayerNumber() + ")") {
-                            public void actionPerformed(ActionEvent e) {
-                                court.setShotsToDraw(player.getShotsList());
-                                info.setData(game, player);
-                            }
-                        });
+                        gamesMenu.addSeparator();
 
-                        playersMenu.add(menuItem);
+                        playersMenu = new JMenu("Game " + game.getGameID() + " from " + game.getGameDate());
+                        playersMenu.setMnemonic(KeyEvent.VK_S);
+
+                        //Add all players to the games list
+                        ArrayList<Player> players = game.getGameRoster();
+                        for(int l = 0; l < players.size(); ++l) {
+                            final Player player = players.get(l);
+
+                            menuItem = new JMenuItem(new AbstractAction(player.getLastName() + ", " + player.getFirstName() + " (" + player.getPlayerNumber() + ")") {
+                                public void actionPerformed(ActionEvent e) {
+                                    court.setShotsToDraw(player.getShotsList());
+                                    info.setData(game, player);
+                                }
+                            });
+
+                            playersMenu.add(menuItem);
+                        }
+
+                        gamesMenu.add(playersMenu);
                     }
-
-                    gamesMenu.add(playersMenu);
+                    seasonsMenu.add(gamesMenu);
                 }
-                menu.add(gamesMenu);
+                menu.add(seasonsMenu);
             }
 
             menuBar.add(menu);
