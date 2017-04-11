@@ -204,7 +204,7 @@ public class StoreData {
         for( int i = 0; i < seasonsList.size(); i++ ){
             if( seasonsList.get(i).getSeasonID().matches(currSeason.getSeasonID()) ) { //finds matching season
                 for ( int j = 0; j < seasonsList.get(i).getGamesList().size(); j++ ) {
-                    if (seasonsList.get(i).getGamesList().get(j).getGameID().matches(currSeason.getGamesList().get(0).getGameID()) ) { //finds matching game
+                    if (seasonsList.get(i).getGamesList().get(j).getGameID().matches(currSeason.getGamesList().get(0).getGameID()) && seasonsList.get(i).getGamesList().get(j).getHomeORaway().matches(currSeason.getGamesList().get(0).getHomeORaway()) ) { //finds matching game
                         for( int k = 0; k < seasonsList.get(i).getGamesList().get(j).getGameRoster().size(); k ++ ){
                             if( seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getFirstName().matches(currSeason.getGamesList().get(0).getGameRoster().get(0).getFirstName()) ) { //finds matching player
                                 if (seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getLastName().matches(currSeason.getGamesList().get(0).getGameRoster().get(0).getLastName()) ) { //finds matching player
