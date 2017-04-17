@@ -114,9 +114,9 @@ public class StoreData {
                     newTeam.addSeasonToTeam(newSeason);
 
                     checkTeam(newTeam);
-                    checkSeason(newSeason);
-                    checkGame(newSeason);
-                    checkPlayer(newSeason, newShot);
+                    checkSeason(newTeam);
+                    checkGame(newTeam);
+                    checkPlayer(newTeam, newShot);
                 }
 
             }
@@ -130,39 +130,13 @@ public class StoreData {
         }
 
     }
-    /* BROKEN
-        //Sorts the seasons list by the season IDs
-        private void sortSeasonsList() {
-            ArrayList<Season> temp = new ArrayList<Season>();
 
-            //Loop through the seasonsList, pushing each order ID into an array, in order
-            for(int i = 0; i < seasonsList.size(); i++) {
-                //An int that holds the value of the season ID at the current index of seasonsList
-                int thisID = Integer.parseInt(seasonsList.get(i).getSeasonID());
-
-                //A loop will iterate until the current ID is greater than the previous one in the temp array
-                //Because this starts at 1, it won't try to sort the first value, which we don't need to do.
-                int index = 0;
-                int comparisonID = 0;
-                while(thisID <= comparisonID && index < temp.size()) {
-                    System.out.println("Inside the while loop.");
-                    //an int that holds the value of the season ID at the current index - 1 of temp
-                    //this will start at 0 and continue growing until the ID is a bigger value than the one we are looking at
-                    comparisonID = Integer.parseInt(temp.get(index).getSeasonID());
-
-                    index++;
-                }
-                temp.add(index, seasonsList.get(i));
-
-                System.out.println(temp.get(i).getSeasonID());
-            }
-        }
-    */
     public ArrayList<Season> getSeasonsList(){
         return seasonsList;
     }
     public ArrayList<Team> getTeamsList(){return teamsList;}
 
+    //checks for new team
     public boolean checkTeam( Team currTeam ){
         for( int i = 0; i < teamsList.size(); i++ ){
             if( teamsList.get(i).getTeamName().matches( currTeam.getTeamName() ) ){
@@ -173,71 +147,134 @@ public class StoreData {
         return true;
     }
 
-    public boolean checkSeason(Season currSeason){
-        for( int i = 0; i < seasonsList.size(); i++ ){
-            if( seasonsList.get(i).getSeasonID().matches(currSeason.getSeasonID()) ){
-                return false; //if the currSeason ID matches an existing season ID then don't create a new season
-            }
-        }
-        seasonsList.add(currSeason); //if never finds matching ID's, create new season
-        return true;
-    }
-
-    public boolean checkGame(Season currSeason){
-        for( int i = 0; i < seasonsList.size(); i++ ){
-            if( seasonsList.get(i).getSeasonID().matches(currSeason.getSeasonID()) ) { //finds matching season
-                for ( int j = 0; j < seasonsList.get(i).getGamesList().size(); j++ ) {
-                    if (seasonsList.get(i).getGamesList().get(j).getGameID().matches(currSeason.getGamesList().get(0).getGameID()) ) { //finds matching game
-                        if( seasonsList.get(i).getGamesList().get(j).getHomeORaway().matches(currSeason.getGamesList().get(0).getHomeORaway()) ){
-                            return false;
-                        }
+    // checks for new season
+    public boolean checkSeason(Team currTeam){
+        for( int i = 0; i < teamsList.size(); i++){
+            if( teamsList.get(i).getTeamName().matches( currTeam.getTeamName() ) ) { //gets matching team
+                for (int j = 0; j < teamsList.get(i).getSeasonList().size(); j++) {
+                    if (teamsList.get(i).getSeasonList().get(j).getSeasonID().matches(currTeam.getSeasonList().get(0).getSeasonID())) { //gets matching season
+                        return false;
                     }
                 }
-                seasonsList.get(i).getGamesList().add(currSeason.getGamesList().get(0)); //if never finds matching ID's, create new game in matching season
+                teamsList.get(i).getSeasonList().add(currTeam.getSeasonList().get(0));
                 return true;
+            }
+        }
+        return false; //error exists if it reaches this
+    }
+//    public boolean checkSeason(Season currSeason){
+//        for( int i = 0; i < seasonsList.size(); i++ ){
+//            if( seasonsList.get(i).getSeasonID().matches(currSeason.getSeasonID()) ){
+//                return false; //if the currSeason ID matches an existing season ID then don't create a new season
+//            }
+//        }
+//        seasonsList.add(currSeason); //if never finds matching ID's, create new season
+//        return true;
+//    }
+
+    // checks for new game
+    public boolean checkGame(Team currTeam){
+        for( int i = 0; i < teamsList.size(); i++ ){
+            if( teamsList.get(i).getTeamName().matches( currTeam.getTeamName() ) ){ //gets matching team
+                for( int j = 0; j < teamsList.get(i).getSeasonList().size(); j++ ){
+                    if( teamsList.get(i).getSeasonList().get(j).getSeasonID().matches( currTeam.getSeasonList().get(0).getSeasonID() ) ){ //gets matching season
+                        for( int k = 0; k < teamsList.get(i).getSeasonList().get(j).getGamesList().size(); k++ ){
+                            if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameID().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameID() ) ){ //gets matching game
+                                if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getHomeORaway().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getHomeORaway() ) ){ //gets matching home or away game
+                                    return false;
+                                }
+                            }
+                        }
+                        teamsList.get(i).getSeasonList().get(j).getGamesList().add( currTeam.getSeasonList().get(0).getGamesList().get(0) );
+                        return true;
+                    }
+                }
             }
         }
         return false; //season doesn't exist, error exists in code
     }
+//    public boolean checkGame(Season currSeason){
+//        for( int i = 0; i < seasonsList.size(); i++ ){
+//            if( seasonsList.get(i).getSeasonID().matches(currSeason.getSeasonID()) ) { //finds matching season
+//                for ( int j = 0; j < seasonsList.get(i).getGamesList().size(); j++ ) {
+//                    if (seasonsList.get(i).getGamesList().get(j).getGameID().matches(currSeason.getGamesList().get(0).getGameID()) ) { //finds matching game
+//                        if( seasonsList.get(i).getGamesList().get(j).getHomeORaway().matches(currSeason.getGamesList().get(0).getHomeORaway()) ){
+//                            return false;
+//                        }
+//                    }
+//                }
+//                seasonsList.get(i).getGamesList().add(currSeason.getGamesList().get(0)); //if never finds matching ID's, create new game in matching season
+//                return true;
+//            }
+//        }
+//        return false; //season doesn't exist, error exists in code
+//    }
 
-    public boolean checkPlayer(Season currSeason, Shots currShot){
-        for( int i = 0; i < seasonsList.size(); i++ ){
-            if( seasonsList.get(i).getSeasonID().matches(currSeason.getSeasonID()) ) { //finds matching season
-                for ( int j = 0; j < seasonsList.get(i).getGamesList().size(); j++ ) {
-                    if (seasonsList.get(i).getGamesList().get(j).getGameID().matches(currSeason.getGamesList().get(0).getGameID()) && seasonsList.get(i).getGamesList().get(j).getHomeORaway().matches(currSeason.getGamesList().get(0).getHomeORaway()) ) { //finds matching game
-                        for( int k = 0; k < seasonsList.get(i).getGamesList().get(j).getGameRoster().size(); k ++ ){
-                            if( seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getFirstName().matches(currSeason.getGamesList().get(0).getGameRoster().get(0).getFirstName()) ) { //finds matching player
-                                if (seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getLastName().matches(currSeason.getGamesList().get(0).getGameRoster().get(0).getLastName()) ) { //finds matching player
-                                    seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).addShot(currShot);
-                                    return false; //if players name in matching season and matching game exists, then don't create a new player
+    // checks for new player
+    public boolean checkPlayer(Team currTeam, Shots currShot){
+        for( int i = 0; i < teamsList.size(); i++ ){
+            if( teamsList.get(i).getTeamName().matches( currTeam.getTeamName() ) ){ //gets matching team
+                for( int j = 0; j < teamsList.get(i).getSeasonList().size(); j++ ){
+                    if( teamsList.get(i).getSeasonList().get(j).getSeasonID().matches( currTeam.getSeasonList().get(0).getSeasonID() ) ){ //gets matching season
+                        for( int k = 0; k < teamsList.get(i).getSeasonList().get(j).getGamesList().size(); k++ ){
+                            if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameID().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameID() ) ){ //gets matching game
+                                if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getHomeORaway().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getHomeORaway() ) ){ //gets matching home or away game
+                                    for( int l = 0; l < teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().size(); l++ ){
+                                        if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).getFirstName().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0).getFirstName() ) ){ //gets matching first name
+                                            if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).getLastName().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0).getLastName() ) ){ //gets matching last name
+                                                return false;
+                                            }
+                                        }
+                                    }
                                 }
+                                teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().add( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0) );
+                                teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().size() - 1 ).addShot( currShot );
                             }
                         }
-                        seasonsList.get(i).getGamesList().get(j).getGameRoster().add(currSeason.getGamesList().get(0).getGameRoster().get(0)); //if never finds matching ID's, create new player in matching game of matching season
-                        seasonsList.get(i).getGamesList().get(j).getGameRoster().get( seasonsList.get(i).getGamesList().get(j).getGameRoster().size() - 1 ).addShot( currShot );//add shot for new player
-                        return true;
                     }
                 }
             }
         }
         return false; //season or game doesn't exist, error exists in code
     }
+//    public boolean checkPlayer(Season currSeason, Shots currShot){
+//        for( int i = 0; i < seasonsList.size(); i++ ){
+//            if( seasonsList.get(i).getSeasonID().matches(currSeason.getSeasonID()) ) { //finds matching season
+//                for ( int j = 0; j < seasonsList.get(i).getGamesList().size(); j++ ) {
+//                    if (seasonsList.get(i).getGamesList().get(j).getGameID().matches(currSeason.getGamesList().get(0).getGameID()) && seasonsList.get(i).getGamesList().get(j).getHomeORaway().matches(currSeason.getGamesList().get(0).getHomeORaway()) ) { //finds matching game
+//                        for( int k = 0; k < seasonsList.get(i).getGamesList().get(j).getGameRoster().size(); k ++ ){
+//                            if( seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getFirstName().matches(currSeason.getGamesList().get(0).getGameRoster().get(0).getFirstName()) ) { //finds matching player
+//                                if (seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getLastName().matches(currSeason.getGamesList().get(0).getGameRoster().get(0).getLastName()) ) { //finds matching player
+//                                    seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).addShot(currShot);
+//                                    return false; //if players name in matching season and matching game exists, then don't create a new player
+//                                }
+//                            }
+//                        }
+//                        seasonsList.get(i).getGamesList().get(j).getGameRoster().add(currSeason.getGamesList().get(0).getGameRoster().get(0)); //if never finds matching ID's, create new player in matching game of matching season
+//                        seasonsList.get(i).getGamesList().get(j).getGameRoster().get( seasonsList.get(i).getGamesList().get(j).getGameRoster().size() - 1 ).addShot( currShot );//add shot for new player
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
+//        return false; //season or game doesn't exist, error exists in code
+//    }
 
-    public void printData(){
-
-        for( int i = 0; i < seasonsList.size(); i++ ){
-            System.out.println("SEASON "+seasonsList.get(i).getSeasonID()+" :\n");
-            for( int j = 0; j < seasonsList.get(i).getGamesList().size(); j++ ){
-                System.out.println("    GAME "+seasonsList.get(i).getGamesList().get(j).getGameID()+", on "+seasonsList.get(i).getGamesList().get(j).getGameDate().toString()+" at "+seasonsList.get(i).getGamesList().get(j).getGameTime()+":\n");
-                for( int k = 0; k < seasonsList.get(i).getGamesList().get(j).getGameRoster().size(); k++ ){
-                    //System.out.println("        "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getLastName()+", "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getFirstName()+" ("+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getPlayerNumber()+")\t\t\t SHOTS MADE: "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getShotsMade()+" \tSHOTS MISSED: "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getShotsMissed());
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
-
-    }
+//    public void printData(){
+//
+//        for( int i = 0; i < seasonsList.size(); i++ ){
+//            System.out.println("SEASON "+seasonsList.get(i).getSeasonID()+" :\n");
+//            for( int j = 0; j < seasonsList.get(i).getGamesList().size(); j++ ){
+//                System.out.println("    GAME "+seasonsList.get(i).getGamesList().get(j).getGameID()+", on "+seasonsList.get(i).getGamesList().get(j).getGameDate().toString()+" at "+seasonsList.get(i).getGamesList().get(j).getGameTime()+":\n");
+//                for( int k = 0; k < seasonsList.get(i).getGamesList().get(j).getGameRoster().size(); k++ ){
+//                    //System.out.println("        "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getLastName()+", "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getFirstName()+" ("+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getPlayerNumber()+")\t\t\t SHOTS MADE: "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getShotsMade()+" \tSHOTS MISSED: "+seasonsList.get(i).getGamesList().get(j).getGameRoster().get(k).getShotsMissed());
+//                }
+//                System.out.println();
+//            }
+//            System.out.println();
+//        }
+//
+//    }
 
 }
 
