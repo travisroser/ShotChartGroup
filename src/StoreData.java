@@ -225,6 +225,7 @@ public class StoreData {
                                     for( int l = 0; l < teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().size(); l++ ){
                                         if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).getFirstName().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0).getFirstName() ) ){ //gets matching first name
                                             if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).getLastName().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0).getLastName() ) ){ //gets matching last name
+                                                teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).addShot( currShot );
                                                 return false;
                                             }
                                         }
@@ -232,6 +233,7 @@ public class StoreData {
                                 }
                                 teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().add( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0) );
                                 teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().size() - 1 ).addShot( currShot );
+                                return true;
                             }
                         }
                     }
