@@ -46,7 +46,7 @@ public class Info extends JPanel {
 
     private void drawPanel() {
         //Draw game info
-        JLabel gameLabel = new JLabel("Game " + game.getGameID() + " on " + game.getGameDate() + " at " + game.getGameTime());
+        JLabel gameLabel = new JLabel("Versus " + game.getGameID() + " on " + game.getGameDate() + " (" + game.getHomeORaway() + ")");
         gameLabel.setFont(new Font("Helvetica",1,12));
         gameLabel.setPreferredSize(new Dimension(250, 200));
         add(gameLabel);
