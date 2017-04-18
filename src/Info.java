@@ -45,17 +45,7 @@ public class Info extends JPanel {
     }
 
     private void drawPanel() {
-        //Draw game info
-        JLabel gameLabel = new JLabel("Versus " + game.getGameID() + " on " + game.getGameDate() + " (" + game.getHomeORaway() + ")");
-        gameLabel.setFont(new Font("Helvetica",1,12));
-        gameLabel.setPreferredSize(new Dimension(250, 200));
-        add(gameLabel);
 
-        //Draw player name
-        JLabel name = new JLabel( "#" + player.getPlayerNumber() + " " + player.getFirstName() + " " + player.getLastName());
-        name.setFont(new Font("Helvetica",1,24));
-        gameLabel.setPreferredSize(new Dimension(250, 300));
-        add(name, SwingConstants.CENTER);
 
         //Loop through all shots for this game and shot shots for this player
         JLabel title = new JLabel("Shots:");
@@ -83,6 +73,18 @@ public class Info extends JPanel {
 
         JList shotsList = new JList(shotsListModel);
         add(shotsList);
+
+        //Draw game info
+        JLabel gameLabel = new JLabel("Versus " + game.getGameID() + " on " + game.getGameDate() + " (" + game.getHomeORaway() + ")");
+        gameLabel.setFont(new Font("Helvetica",1,12));
+        gameLabel.setPreferredSize(new Dimension(250, 200));
+        add(gameLabel);
+
+        //Draw player name
+        JLabel name = new JLabel( "#" + player.getPlayerNumber() + " " + player.getFirstName() + " " + player.getLastName());
+        name.setFont(new Font("Helvetica",1,24));
+        gameLabel.setPreferredSize(new Dimension(250, 300));
+        add(name, SwingConstants.CENTER);
 
         repaint();
     }
