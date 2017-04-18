@@ -15,7 +15,7 @@ public class StoreData {
 
     StoreData(){
 
-        File inputFile = new File("test2.csv");
+        File inputFile = new File("test-3.csv");
 
         try {
 
@@ -97,6 +97,9 @@ public class StoreData {
                     else if( dataType == 11 ){ //season
                         newSeason.setSeasonID( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                         //newShot.setyCoordinate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
+                    }
+                    else if( dataType == 12 ){ //game date
+                        newGame.setGameDate( newChars.toString().replace(",","").replace("[","").replace("]","").replace(" ","").trim() );
                     }
 
                     dataType++;

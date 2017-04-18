@@ -14,7 +14,7 @@ public class Court extends JPanel implements MouseMotionListener {
     private int mouseX, mouseY;
 
     public Court() {
-        setPreferredSize(new Dimension(500, 500));
+        setPreferredSize(new Dimension(510, 480));
         this.addMouseMotionListener(this);
     }
 
@@ -55,7 +55,7 @@ public class Court extends JPanel implements MouseMotionListener {
 
         //Draw the court
         setBackground (Color.white);
-        g.setColor (new Color(255, 213, 94));
+        g.setColor (new Color(217, 217, 217));
         g.fillRect (5, 5, 500, 470);  // outer lines
 
         g.setColor (Color.black);
@@ -73,26 +73,37 @@ public class Court extends JPanel implements MouseMotionListener {
         g.fillRect(213, -1, 1, 49); //Right Side
         g.drawArc(-213, -213, 426, 426, 0, 180); //3Arc
         g.drawRect (-250, -422, 500, 470);
+        g.translate(-250,43); //CHANGES 0,0 to bottom left
 
         //Draw the shots
         //Paint all of the shots that are in the shotsToDraw ArrayList, if any
         for(int i = 0; i < shotsToDraw.size(); i++) {
             Shots shot = shotsToDraw.get(i);
 
-            double y = Integer.parseInt(shot.getxCoordinate()) * 4.7;
+            //calculate x and y coordinate of the shot from the bottom left corner
+            double y = Integer.parseInt(shot.getyCoordinate()) * 4.7;
             int yCor = (int)Math.round(y);
-            int xCor = (Integer.parseInt(shot.getyCoordinate()) * 5);
-            double dist = (xCor)*(xCor)+(yCor * yCor);
+            yCor = (-1)*yCor;
+            int xCor = (Integer.parseInt(shot.getxCoordinate()) * 5);
+
+            //calculate distance
+            int xDist = 250 - xCor;
+            int yDist = 43 - yCor;
+            xDist = Math.round(xDist/10);
+            yDist = Math.round(yDist/10);
+            double dist = (xDist)*(xDist)+(yDist * yDist);
             dist = Math.sqrt(dist);
 
-
-            System.out.println("Drawing " + (shot.getmissOrMake() == '1'?"Make":"Miss") + " at: {X: " + xCor + ", Y: " + yCor + "}.");
-            System.out.println(" Distance from basket: " + dist);
+            if(i==0){
+                System.out.println("Note: Shot coordinates below represent distance from hoop in feet.");
+            }
+            System.out.println("Drawing " + (shot.getmissOrMake() == '1'?"Make":"Miss") + " at: (X: " + xDist + ", Y: " + yDist + ").");
+            System.out.println(" Distance from basket: " + dist + "feet.");
 
 
             //Change color depending on if the shot was a miss or a make
             if(shot.getmissOrMake() == '1') {
-                g.setColor(Color.GREEN); //Make
+                g.setColor(new Color(0,150,20)); //Make
             } else {
                 g.setColor(Color.RED); //MISS
             }

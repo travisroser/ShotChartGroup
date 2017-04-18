@@ -48,11 +48,13 @@ public class Info extends JPanel {
         //Draw game info
         JLabel gameLabel = new JLabel("Game " + game.getGameID() + " on " + game.getGameDate() + " at " + game.getGameTime());
         gameLabel.setFont(new Font("Helvetica",1,12));
+        gameLabel.setPreferredSize(new Dimension(250, 200));
         add(gameLabel);
 
         //Draw player name
         JLabel name = new JLabel( "#" + player.getPlayerNumber() + " " + player.getFirstName() + " " + player.getLastName());
         name.setFont(new Font("Helvetica",1,24));
+        gameLabel.setPreferredSize(new Dimension(250, 300));
         add(name, SwingConstants.CENTER);
 
         //Loop through all shots for this game and shot shots for this player
