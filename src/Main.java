@@ -94,19 +94,19 @@ public class Main {
 
                 menu.addSeparator();
 
-                seasonsMenu = new JMenu(Integer.toString(i));
+                seasonsMenu = new JMenu(team.getTeamName());
                 seasonsMenu.setMnemonic(KeyEvent.VK_S);
 
                 //loop through all seasons
-                for(int j = 0; j < data.getSeasonsList().size(); j++) {
+                for(int j = 0; j < seasons.size(); j++) {
                     //Set a variable for this season
-                    Season season = data.getSeasonsList().get(j);
+                    Season season = seasons.get(j);
                     //Get the games for this season
                     ArrayList<Game> games = season.getGamesList();
 
                     menu.addSeparator();
 
-                    gamesMenu = new JMenu(Integer.toString(j));
+                    gamesMenu = new JMenu(seasons.get(j).getSeasonID());
                     gamesMenu.setMnemonic(KeyEvent.VK_S);
 
                     //Loop through and add all games
