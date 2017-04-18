@@ -68,22 +68,35 @@ public class Info extends JPanel {
             double dist = (xCor)*(xCor)+(yCor * yCor);
             dist = Math.sqrt(dist);
 
-            shotsListModel.addElement("Shot #" + (i+1) + ": " + missOrMake + " from {" + xCor + ", " + yCor + "}. Distance: " + (int)dist);
+            //calculate distance
+            int xDist = yCor - 250;
+            int yDist = xCor - 43;
+            xDist = xDist/10;
+            yDist = yDist/10;
+            dist = (xDist)*(xDist)+(yDist * yDist);
+            dist = Math.sqrt(dist);
+
+            if(i==0){
+                System.out.println("Note: Shot coordinates below represent distance from hoop in feet.");
+            }
+
+            shotsListModel.addElement("Shot #" + (i+1) + ": " + missOrMake + " from (" + xDist + ", " + yDist + "). Distance: " + (int)dist + " feet");
         }
 
         JList shotsList = new JList(shotsListModel);
+        shotsList.setPreferredSize(new Dimension(250, 350));
         add(shotsList);
 
         //Draw game info
         JLabel gameLabel = new JLabel("Versus " + game.getGameID() + " on " + game.getGameDate() + " (" + game.getHomeORaway() + ")");
         gameLabel.setFont(new Font("Helvetica",1,12));
-        gameLabel.setPreferredSize(new Dimension(250, 200));
+        gameLabel.setPreferredSize(new Dimension(250, 50));
         add(gameLabel);
 
         //Draw player name
         JLabel name = new JLabel( "#" + player.getPlayerNumber() + " " + player.getFirstName() + " " + player.getLastName());
         name.setFont(new Font("Helvetica",1,24));
-        gameLabel.setPreferredSize(new Dimension(250, 300));
+        gameLabel.setPreferredSize(new Dimension(250, 100));
         add(name, SwingConstants.CENTER);
 
         repaint();
