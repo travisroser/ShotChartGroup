@@ -91,19 +91,19 @@ public class Info extends JPanel {
         }
 
         JList shotsList = new JList(shotsListModel);
-        if( player.getShotsList().size() > 7 ) {
+        if( player.getShotsList().size() > 6 ) {
             shotsList.setPreferredSize(new Dimension(250, 240));
             add(new JScrollPane(shotsList));
         }
-        else if( player.getShotsList().size() > 14 ){
+        else if( player.getShotsList().size() > 13 ){
             shotsList.setPreferredSize(new Dimension(250, 360));
             add(new JScrollPane(shotsList));
         }
-        else if( player.getShotsList().size() > 21 ){
+        else if( player.getShotsList().size() > 20 ){
             shotsList.setPreferredSize(new Dimension(250, 480));
             add(new JScrollPane(shotsList));
         }
-        else if( player.getShotsList().size() > 28 ){
+        else if( player.getShotsList().size() > 27 ){
             shotsList.setPreferredSize(new Dimension(250, 600));
             add(new JScrollPane(shotsList));
         }
