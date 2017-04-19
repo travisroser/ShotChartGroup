@@ -53,6 +53,9 @@ public class Info extends JPanel {
         add(title);
 
         DefaultListModel shotsListModel = new DefaultListModel();
+        DecimalFormat df = new DecimalFormat("#.##");
+        double totalDist = 0;
+        int numShots = 0;
 
         for(int i = 0; i < player.getShotsList().size(); i++) {
             final Shots shot = player.getShotsList().get(i);
@@ -66,7 +69,7 @@ public class Info extends JPanel {
             int yCor = (int)Math.round(y);
             int xCor = (Integer.parseInt(shot.getyCoordinate()) * 5);
             double dist = (xCor)*(xCor)+(yCor * yCor);
-            dist = Math.sqrt(dist);
+
 
             //calculate distance
             int xDist = yCor - 250;
@@ -75,12 +78,16 @@ public class Info extends JPanel {
             yDist = yDist/10;
             dist = (xDist)*(xDist)+(yDist * yDist);
             dist = Math.sqrt(dist);
+            numShots = i + 1;
+            //Math.round(dist,2);
+
+            totalDist = totalDist + dist;
 
             if(i==0){
-                System.out.println("Note: Shot coordinates below represent distance from hoop in feet.");
+                shotsListModel.addElement("Note: Shot coordinates below represent distance from hoop in feet.");
             }
 
-            shotsListModel.addElement("Shot #" + (i+1) + ": " + missOrMake + " from (" + xDist + ", " + yDist + "). Distance: " + (int)dist + " feet");
+            shotsListModel.addElement("Shot #" + (i+1) + ": " + missOrMake + " from (" + xDist + ", " + yDist + "). Distance: " + df.format(dist) + " feet");
         }
 
         JList shotsList = new JList(shotsListModel);
@@ -105,6 +112,12 @@ public class Info extends JPanel {
 
             add(shotsList);
         }
+
+        //Shots averages
+        double avgDist = totalDist / numShots;
+        JLabel AvgLabel = new JLabel("Average distance of shots: " + df.format(avgDist));
+        AvgLabel.setFont(new Font("Helvetica",1,12));
+        add(AvgLabel);
 
         //Draw game info
         JLabel gameLabel = new JLabel("Versus " + game.getGameID() + " on " + game.getGameDate() + " (" + game.getHomeORaway() + ")");
