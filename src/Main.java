@@ -22,6 +22,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JFrame;
 // end new
 
+/*
+Created By: Shot Chart Group, Spring 2017
+ */
+
 public class Main {
     private static Court court = new Court();
     private static Info info = new Info();
@@ -92,7 +96,9 @@ public class Main {
                 //Get the seasons for this season
                 ArrayList<Season> seasons = team.getSeasonList();
 
-                menu.addSeparator();
+                if(i != 0) {
+                    menu.addSeparator();
+                }
 
                 seasonsMenu = new JMenu(team.getTeamName());
                 seasonsMenu.setMnemonic(KeyEvent.VK_S);
@@ -115,7 +121,7 @@ public class Main {
 
                         gamesMenu.addSeparator();
 
-                        playersMenu = new JMenu("Game " + game.getGameID() + " from " + game.getGameDate());
+                        playersMenu = new JMenu("Versus " + game.getGameID() + " on " + game.getGameDate() + " (" + game.getHomeORaway() + ")");
                         playersMenu.setMnemonic(KeyEvent.VK_S);
 
                         //Add all players to the games list
@@ -123,7 +129,7 @@ public class Main {
                         for(int l = 0; l < players.size(); ++l) {
                             final Player player = players.get(l);
 
-                            menuItem = new JMenuItem(new AbstractAction(player.getLastName() + ", " + player.getFirstName() + " (" + player.getPlayerNumber() + ")") {
+                            menuItem = new JMenuItem(new AbstractAction(player.getLastName() + ", " + player.getFirstName()) {
                                 public void actionPerformed(ActionEvent e) {
                                     court.setShotsToDraw(player.getShotsList());
                                     info.setData(game, player);
@@ -132,14 +138,15 @@ public class Main {
 
                             playersMenu.add(menuItem);
                         }
-
                         gamesMenu.add(playersMenu);
+
                     }
+                    gamesMenu.addSeparator();
                     seasonsMenu.add(gamesMenu);
                 }
                 menu.add(seasonsMenu);
             }
-
+            menu.addSeparator();
             menuBar.add(menu);
 
             return menuBar;

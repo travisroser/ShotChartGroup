@@ -20,7 +20,7 @@ public class Info extends JPanel {
         setBackground(Color.lightGray);
         setLayout(new GridLayout(0,1, 0, 0));
 
-        JLabel title = new JLabel("Please Select a Game and Player", SwingConstants.CENTER);
+        JLabel title = new JLabel("Please select a Team, then a Game, then a Player", SwingConstants.CENTER);
         title.setFont(new Font("Helvetica",1,20));
         add(title);
 
@@ -84,8 +84,27 @@ public class Info extends JPanel {
         }
 
         JList shotsList = new JList(shotsListModel);
-        shotsList.setPreferredSize(new Dimension(250, 350));
-        add(shotsList);
+        if( player.getShotsList().size() > 7 ) {
+            shotsList.setPreferredSize(new Dimension(250, 240));
+            add(new JScrollPane(shotsList));
+        }
+        else if( player.getShotsList().size() > 14 ){
+            shotsList.setPreferredSize(new Dimension(250, 360));
+            add(new JScrollPane(shotsList));
+        }
+        else if( player.getShotsList().size() > 21 ){
+            shotsList.setPreferredSize(new Dimension(250, 480));
+            add(new JScrollPane(shotsList));
+        }
+        else if( player.getShotsList().size() > 28 ){
+            shotsList.setPreferredSize(new Dimension(250, 600));
+            add(new JScrollPane(shotsList));
+        }
+        else{
+            shotsList.setPreferredSize(new Dimension(250, 350));
+
+            add(shotsList);
+        }
 
         //Draw game info
         JLabel gameLabel = new JLabel("Versus " + game.getGameID() + " on " + game.getGameDate() + " (" + game.getHomeORaway() + ")");
@@ -94,7 +113,7 @@ public class Info extends JPanel {
         add(gameLabel);
 
         //Draw player name
-        JLabel name = new JLabel( "#" + player.getPlayerNumber() + " " + player.getFirstName() + " " + player.getLastName());
+        JLabel name = new JLabel( player.getFirstName() + " " + player.getLastName());
         name.setFont(new Font("Helvetica",1,24));
         gameLabel.setPreferredSize(new Dimension(250, 100));
         add(name, SwingConstants.CENTER);

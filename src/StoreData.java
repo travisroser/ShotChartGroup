@@ -15,7 +15,7 @@ public class StoreData {
 
     StoreData(){
 
-        File inputFile = new File("test-3.csv");
+        File inputFile = new File("test4.csv");
 
         try {
 
@@ -120,13 +120,26 @@ public class StoreData {
                     checkSeason(newTeam);
                     checkGame(newTeam);
                     checkPlayer(newTeam, newShot);
-                }
 
+                }
             }
 
             //done reading file
 
-            //printData();
+            //sort game rosters for each team
+            for( int i = 0; i < teamsList.size(); i++ ){ //each team
+                for( int j = 0; j < teamsList.get(i).getSeasonList().size(); j++ ){ //each season of each team
+                    for( int k = 0; k < teamsList.get(i).getSeasonList().get(j).getGamesList().size(); k++ ){ //each game of each season of each team
+                        teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).sortGameRoster();
+                    }
+                }
+            }
+            //sort game lists for each season for each team
+            for( int i = 0; i < teamsList.size(); i++ ){
+                for( int j = 0; j < teamsList.get(i).getSeasonList().size(); j++ ){
+                    teamsList.get(i).getSeasonList().get(j).sortGamesList();
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -184,7 +197,9 @@ public class StoreData {
                         for( int k = 0; k < teamsList.get(i).getSeasonList().get(j).getGamesList().size(); k++ ){
                             if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameID().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameID() ) ){ //gets matching game
                                 if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getHomeORaway().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getHomeORaway() ) ){ //gets matching home or away game
-                                    return false;
+                                    if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameDate().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameDate() ) ) {// check for matching date
+                                        return false;
+                                    }
                                 }
                             }
                         }
@@ -222,11 +237,13 @@ public class StoreData {
                         for( int k = 0; k < teamsList.get(i).getSeasonList().get(j).getGamesList().size(); k++ ){
                             if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameID().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameID() ) ){ //gets matching game
                                 if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getHomeORaway().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getHomeORaway() ) ){ //gets matching home or away game
-                                    for( int l = 0; l < teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().size(); l++ ){
-                                        if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).getFirstName().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0).getFirstName() ) ){ //gets matching first name
-                                            if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).getLastName().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0).getLastName() ) ){ //gets matching last name
-                                                teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).addShot( currShot );
-                                                return false;
+                                    if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameDate().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameDate() ) ) {// check for matching date
+                                        for( int l = 0; l < teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().size(); l++ ){
+                                            if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).getFirstName().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0).getFirstName() ) ){ //gets matching first name
+                                                if( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).getLastName().matches( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0).getLastName() ) ) { //gets matching last name
+                                                    teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get(l).addShot(currShot);
+                                                    return false;
+                                                }
                                             }
                                         }
                                     }

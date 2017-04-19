@@ -26,11 +26,9 @@ public class Game {
     public String getGameDate(){return gameDate;}
     public void setGameID( String num ){gameID = num;}
     public String getGameID(){return gameID;}
-    public void addPlayerToGameRoster( Player newPlayer ){
-        gameRoster.add(newPlayer);
-        sorts.sortPlayersList(gameRoster);
-    }
-    public ArrayList<Player> getGameRoster(){return sorts.sortPlayersList(gameRoster);}
+    public void addPlayerToGameRoster( Player newPlayer ){gameRoster.add(newPlayer);}
+    public void sortGameRoster(){sorts.sortPlayersList( gameRoster );}
+    public ArrayList<Player> getGameRoster(){return gameRoster;}
     public void setHomeORaway( String newData ){homeORaway = newData;}
     public String getHomeORaway(){return homeORaway;}
 

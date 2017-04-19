@@ -21,9 +21,10 @@ public class Season {
     public String getSeasonID(){return seasonID;}
     public void addGametoSeason( Game newGame ){
         gamesList.add(newGame);
-        sorts.sortGamesList(gamesList);
     }
-    public ArrayList<Game> getGamesList(){return sorts.sortGamesList(gamesList);}
+    public ArrayList<Game> getGamesList(){return gamesList;}
+    public void sortGamesList(){sorts.sortGamesList( gamesList );}
+
 
     //Prints a string representing the array list of games
     public String toString() {
