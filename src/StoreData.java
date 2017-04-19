@@ -246,11 +246,11 @@ public class StoreData {
                                                 }
                                             }
                                         }
+                                        teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().add( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0) );
+                                        teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().size() - 1 ).addShot( currShot );
+                                        return true;
                                     }
                                 }
-                                teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().add( currTeam.getSeasonList().get(0).getGamesList().get(0).getGameRoster().get(0) );
-                                teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().get( teamsList.get(i).getSeasonList().get(j).getGamesList().get(k).getGameRoster().size() - 1 ).addShot( currShot );
-                                return true;
                             }
                         }
                     }
