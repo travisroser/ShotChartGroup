@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="ShotChartGroup:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ShotChartGroup_jar</output-path>
+    <root id="root">
+      <element id="archive" name="ShotChartGroup.jar">
+        <element id="module-output" name="ShotChartGroup" />
+      </element>
+    </root>
+  </artifact>
+</component>
