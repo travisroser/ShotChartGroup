@@ -48,14 +48,18 @@ public class Info extends JPanel {
 
 
         //Loop through all shots for this game and shot shots for this player
-        JLabel title = new JLabel("Shots:");
-        title.setFont(new Font("Helvetica",1,20));
-        add(title);
+        //JLabel title = new JLabel("Shots:");
+        //title.setFont(new Font("Helvetica",1,20));
+        //add(title);
 
         DefaultListModel shotsListModel = new DefaultListModel();
         DecimalFormat df = new DecimalFormat("#.##");
         double totalDist = 0;
         int numShots = 0;
+        double makeDist = 0;
+        double missDist = 0;
+        int numMakes = 0;
+        int numMisses = 0;
 
         for(int i = 0; i < player.getShotsList().size(); i++) {
             final Shots shot = player.getShotsList().get(i);
@@ -82,6 +86,15 @@ public class Info extends JPanel {
             //Math.round(dist,2);
 
             totalDist = totalDist + dist;
+
+            if(missOrMake == "Make"){
+                makeDist = makeDist + dist;
+                numMakes = numMakes + 1;
+            }
+            else if(missOrMake == "Miss"){
+                missDist = missDist + dist;
+                numMisses = numMisses + 1;
+            }
 
             if(i==0){
                 shotsListModel.addElement("Note: Shot coordinates below represent distance from hoop in feet.");
@@ -115,23 +128,32 @@ public class Info extends JPanel {
 
         //Shots averages
         double avgDist = totalDist / numShots;
+        double avgMake = makeDist / numMakes;
+        double avgMiss = missDist / numMisses;
+
         JLabel AvgLabel = new JLabel("Average distance of shots: " + df.format(avgDist));
         AvgLabel.setFont(new Font("Helvetica",1,12));
         add(AvgLabel);
 
         //Draw game info
-        JLabel gameLabel = new JLabel("Versus " + game.getGameID() + " on " + game.getGameDate() + " (" + game.getHomeORaway() + ")");
-        gameLabel.setFont(new Font("Helvetica",1,12));
-        gameLabel.setPreferredSize(new Dimension(250, 50));
-        add(gameLabel);
+        JLabel MakeLabel = new JLabel("Average distance of makes: " + df.format(avgMake));
+        MakeLabel.setFont(new Font("Helvetica",1,12));
+        MakeLabel.setFont(new Font("Helvetica",1,12));
+        MakeLabel.setForeground(new Color(0,150,20));
+        add(MakeLabel);
+
+        JLabel MissLabel = new JLabel("Average distance of misses: " + df.format(avgMiss));
+        MissLabel.setFont(new Font("Helvetica",1,12));
+        MissLabel.setForeground(Color.red);
+        add(MissLabel);
 
         //Draw player name
-        JLabel name = new JLabel( player.getFirstName() + " " + player.getLastName());
-        name.setFont(new Font("Helvetica",1,24));
-        gameLabel.setPreferredSize(new Dimension(250, 100));
+        JLabel name = new JLabel( player.getFirstName() + " " + player.getLastName() + " versus " + game.getGameID() + " on " + game.getGameDate() + " (" + game.getHomeORaway() + ")");
+        name.setFont(new Font("Helvetica",1,14));
+        //gameLabel.setPreferredSize(new Dimension(250, 100));
         add(name, SwingConstants.CENTER);
+
 
         repaint();
     }
 }
-
