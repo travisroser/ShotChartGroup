@@ -70,15 +70,15 @@ public class Info extends JPanel {
                 missOrMake = "Make";
             }
 
-            double y = Integer.parseInt(shot.getxCoordinate()) * 4.7;
-            int yCor = (int)Math.round(y);
-            int xCor = (Integer.parseInt(shot.getyCoordinate()) * 5);
+            double yCor = Integer.parseInt(shot.getyCoordinate()) * 4.7;
+            //int yCor = (int)Math.round(y);
+            double xCor = (Integer.parseInt(shot.getxCoordinate()) * 5);
             double dist = (xCor)*(xCor)+(yCor * yCor);
 
 
             //calculate distance
-            int xDist = yCor - 250;
-            int yDist = xCor - 43;
+            double xDist = xCor - 250;
+            double yDist = yCor - 43;
             xDist = xDist/10;
             yDist = yDist/10;
             dist = (xDist)*(xDist)+(yDist * yDist);
@@ -101,7 +101,7 @@ public class Info extends JPanel {
                 shotsListModel.addElement("Note: Shot coordinates below represent distance from hoop in feet.");
             }
 
-            shotsListModel.addElement("Shot #" + (i+1) + ": " + missOrMake + " from (" + xDist + ", " + yDist + "). Distance: " + df.format(dist) + " feet");
+            shotsListModel.addElement("Shot #" + (i+1) + ": " + missOrMake + " from (" + (int)xDist + ", " + (int)yDist + "). Distance: " + df.format(dist) + " feet");
         }
 
         JList shotsList = new JList(shotsListModel);
@@ -133,7 +133,7 @@ public class Info extends JPanel {
         double avgMiss = missDist / numMisses;
         double shotPercent = 100 * numMakes / numShots;
 
-
+        avgListModel.addElement("Game stats:");
         avgListModel.addElement("Shooting percentage: " + shotPercent + "%");
         avgListModel.addElement("Average distance of shots: " + df.format(avgDist) + " feet");
         avgListModel.addElement("Average distance of makes: " + df.format(avgMake) + " feet");

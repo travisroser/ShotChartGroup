@@ -73,8 +73,51 @@ public class Court extends JPanel implements MouseMotionListener {
         g.fillRect(213, -1, 1, 49); //Right Side
         g.drawArc(-213, -213, 426, 426, 0, 180); //3Arc
         g.drawRect (-250, -422, 500, 470);
-        g.translate(-250,43); //CHANGES 0,0 to bottom left
 
+        //draw vertical coordinate lines, 6 pixels long 15 pixes apart
+        g.drawLine(0, 42, 0, 48);
+        g.drawLine(0, 18, 0, 24);
+        g.drawLine(0, -3, 0, 3); //origin
+        g.drawLine(-3, 0, 3, 0);
+        g.drawLine(0, -24, 0, -18);
+        g.drawLine(0, -45, 0, -39);
+        g.drawLine(0, -66, 0, -60);
+        g.drawLine(0, -87, 0, -81);
+        g.drawLine(0, -108, 0, -102);
+        g.drawLine(0, -129, 0, -123);
+        g.drawLine(0, -150, 0, -144);
+        g.drawLine(0, -171, 0, -165);
+        g.drawLine(0, -192, 0, -186);
+        g.drawLine(0, -213, 0, -207);
+        g.drawLine(0, -234, 0, -228);
+        g.drawLine(0, -255, 0, -249);
+        g.drawLine(0, -276, 0, -270);
+        g.drawLine(0, -297, 0, -291);
+        g.drawLine(0, -318, 0, -312);
+        g.drawLine(0, -339, 0, -333);
+        g.drawLine(0, -360, 0, -354);
+        g.drawLine(0, -381, 0, -375);
+        g.drawLine(0, -402, 0, -396);
+        g.drawLine(0, -422, 0, -417);
+
+
+
+
+
+
+        //coordinate labels
+        Font font = new Font("Helvetica", Font.BOLD, 8);
+        g.setFont(font);
+        g.drawString("(0,0)", 5, 8);
+        g.drawString("(0,-5)", -9, 56);
+        g.drawString("(-21,-5)", -224, 56);
+        g.drawString("(21,-5)", 203, 56);
+        g.drawString("(0,21)", 1, -214);
+
+
+
+
+        g.translate(-250,48); //CHANGES 0,0 to bottom left
         //Draw the shots
         //Paint all of the shots that are in the shotsToDraw ArrayList, if any
         for(int i = 0; i < shotsToDraw.size(); i++) {
@@ -82,13 +125,15 @@ public class Court extends JPanel implements MouseMotionListener {
 
             //calculate x and y coordinate of the shot from the bottom left corner
             double y = Integer.parseInt(shot.getyCoordinate()) * 4.7;
-            int yCor = (int)Math.round(y);
-            yCor = (-1)*yCor;
-            int xCor = (Integer.parseInt(shot.getxCoordinate()) * 5);
+            //int yCor = (int)Math.round(y);
+            double yCor = (-1)*y;
+            double xCor = (Integer.parseInt(shot.getxCoordinate()) * 5);
+
+
 
             //calculate distance
-            int xDist = 250 - xCor;
-            int yDist = 43 - yCor;
+            double xDist = 250 - xCor;
+            double yDist = 48 - yCor;
             xDist = Math.round(xDist/10);
             yDist = Math.round(yDist/10);
             double dist = (xDist)*(xDist)+(yDist * yDist);
@@ -107,8 +152,8 @@ public class Court extends JPanel implements MouseMotionListener {
             } else {
                 g.setColor(Color.RED); //MISS
             }
+            g.drawOval( (int)xCor - 5, ((int)yCor - 5), 10, 10);  // DRAWS CIRCLE FOR A SHOT
 
-            g.drawOval( xCor - 5, (yCor - 5), 10, 10);  // DRAWS CIRCLE FOR A SHOT
         }
 
     }
