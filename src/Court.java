@@ -74,11 +74,11 @@ public class Court extends JPanel implements MouseMotionListener {
         g.drawArc(-213, -213, 426, 426, 0, 180); //3Arc
         g.drawRect (-250, -422, 500, 470);
 
+        g.setColor (Color.gray);
         //draw vertical coordinate lines, 6 pixels long 15 pixes apart
         g.drawLine(0, 42, 0, 48);
         g.drawLine(0, 18, 0, 24);
         g.drawLine(0, -3, 0, 3); //origin
-        g.drawLine(-3, 0, 3, 0);
         g.drawLine(0, -24, 0, -18);
         g.drawLine(0, -45, 0, -39);
         g.drawLine(0, -66, 0, -60);
@@ -100,6 +100,34 @@ public class Court extends JPanel implements MouseMotionListener {
         g.drawLine(0, -402, 0, -396);
         g.drawLine(0, -422, 0, -417);
 
+        //Draw horizontal lines
+        g.drawLine(-3, 0, 3, 0);
+        g.drawLine(18, 0, 24, 0);
+        g.drawLine(39, 0, 45, 0);
+        g.drawLine(60, 0, 66, 0);
+        g.drawLine(81, 0, 87, 0);
+        g.drawLine(102, 0, 108, 0);
+        g.drawLine(123, 0, 129, 0);
+        g.drawLine(144, 0, 150, 0);
+        g.drawLine(165, 0, 171, 0);
+        g.drawLine(186, 0, 192, 0);
+        g.drawLine(207, 0, 213, 0);
+        g.drawLine(228, 0, 234, 0);
+        g.drawLine(249, 0, 250, 0);
+        //g.drawLine(207, 0, 213, 0);
+        g.drawLine(-18, 0, -24, 0);
+        g.drawLine(-39, 0, -45, 0);
+        g.drawLine(-60, 0, -66, 0);
+        g.drawLine(-81, 0, -87, 0);
+        g.drawLine(-102, 0, -108, 0);
+        g.drawLine(-123, 0, -129, 0);
+        g.drawLine(-144, 0, -150, 0);
+        g.drawLine(-165, 0, -171, 0);
+        g.drawLine(-186, 0, -192, 0);
+        g.drawLine(-207, 0, -213, 0);
+        g.drawLine(-228, 0, -234, 0);
+        g.drawLine(-249, 0, -250, 0);
+
 
 
 
@@ -116,7 +144,7 @@ public class Court extends JPanel implements MouseMotionListener {
 
 
 
-
+        g.setColor (Color.black);
         g.translate(-250,48); //CHANGES 0,0 to bottom left
         //Draw the shots
         //Paint all of the shots that are in the shotsToDraw ArrayList, if any
