@@ -53,6 +53,7 @@ public class Info extends JPanel {
         //add(title);
 
         DefaultListModel shotsListModel = new DefaultListModel();
+        DefaultListModel avgListModel = new DefaultListModel();
         DecimalFormat df = new DecimalFormat("#.##");
         double totalDist = 0;
         int numShots = 0;
@@ -130,8 +131,18 @@ public class Info extends JPanel {
         double avgDist = totalDist / numShots;
         double avgMake = makeDist / numMakes;
         double avgMiss = missDist / numMisses;
+        double shotPercent = 100 * numMakes / numShots;
 
-        JLabel AvgLabel = new JLabel("Average distance of shots: " + df.format(avgDist));
+
+        avgListModel.addElement("Shooting percentage: " + shotPercent + "%");
+        avgListModel.addElement("Average distance of shots: " + df.format(avgDist) + " feet");
+        avgListModel.addElement("Average distance of makes: " + df.format(avgMake) + " feet");
+        avgListModel.addElement("Average distance of misses: " + df.format(avgMiss) + " feet");
+        JList avgList = new JList(avgListModel);
+        avgList.setBackground(Color.lightGray);
+        add(avgList);
+
+        /*JLabel AvgLabel = new JLabel("Average distance of shots: " + df.format(avgDist));
         AvgLabel.setFont(new Font("Helvetica",1,12));
         add(AvgLabel);
 
@@ -145,7 +156,7 @@ public class Info extends JPanel {
         JLabel MissLabel = new JLabel("Average distance of misses: " + df.format(avgMiss));
         MissLabel.setFont(new Font("Helvetica",1,12));
         MissLabel.setForeground(Color.red);
-        add(MissLabel);
+        add(MissLabel);*/
 
         //Draw player name
         JLabel name = new JLabel( player.getFirstName() + " " + player.getLastName() + " versus " + game.getGameID() + " on " + game.getGameDate() + " (" + game.getHomeORaway() + ")");
